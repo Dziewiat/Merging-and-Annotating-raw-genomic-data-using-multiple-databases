@@ -1,4 +1,6 @@
-This code cleans an Excel file containing information about gene mutations by:
+The goal of this code is to merge two files, one containing mutations data, and the other containing genomic data. It determines mutation types and matches mutations to specific genes.
+
+It cleans an Excel file containing information about gene mutations by:
 - Handling missing values
 - Removing duplicates
 - Checking for inconsistencies
