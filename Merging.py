@@ -1,26 +1,10 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 
-df = pd.read_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
-                   " databases/raw_gene_data/variants-file.xlsx", sheet_name=0)
-print(df.head())
-print("Original length:", len(df))
-
-# Data cleaning
-# Handling missing values
-df = df.dropna(axis=0, how="any")
-print("Length without NAs:", len(df))
-
-# Removing duplicates
-df = df.drop_duplicates()
-print("Length without duplicates:", len(df))
-
-# Correcting inconsistencies
-print(df.dtypes)  # All checks out, numbers classified as int 64, rest as objects
-print(pd.to_numeric(df["POS_x"], errors='coerce').isnull().value_counts())
-print(pd.to_numeric(df["End_x"], errors='coerce').isnull().value_counts())
+df = pd.read_csv("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
+                 " databases/results/variants-cleaned.csv")
+df.drop(df.columns[0], axis=1)
+df
 
 # Data analysis
 # Determining the variant type
@@ -60,11 +44,11 @@ sorted_snv_df = snv_df.sort_values(by="POS_x")
 sorted_hg19_df = hg19_df.sort_values(by="Start")  # Sorting dataframes for the merge_asof function
 merged_df = pd.merge_asof(sorted_snv_df, sorted_hg19_df, left_on="POS_x", right_on="Start", direction="backward")
 print(merged_df)
-# merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
-#                    " databases/results/merged-dataframe.xlsx")
+merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
+                   " databases/results/merged-dataframe.xlsx")
 
 # Deleting rows in which the chromosomes do not match
 merged_df = merged_df.loc[merged_df["CHROM_x"] == merged_df["chrom"]]
 print(merged_df)
-# merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
-#                    " databases/results/merged-dataframe-cleaned.xlsx")
+merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
+                   " databases/results/merged-dataframe-cleaned.xlsx")
