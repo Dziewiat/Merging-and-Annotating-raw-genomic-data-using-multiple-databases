@@ -60,11 +60,11 @@ sorted_snv_df = snv_df.sort_values(by="POS_x")
 sorted_hg19_df = hg19_df.sort_values(by="Start")  # Sorting dataframes for the merge_asof function
 merged_df = pd.merge_asof(sorted_snv_df, sorted_hg19_df, left_on="POS_x", right_on="Start", direction="backward")
 print(merged_df)
-# merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
-#                    " databases/results/merged-dataframe.xlsx")
+merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
+                   " databases/results/merged-dataframe.xlsx")
 
 # Deleting rows in which the chromosomes do not match
 merged_df = merged_df.loc[merged_df["CHROM_x"] == merged_df["chrom"]]
 print(merged_df)
-# merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
-#                    " databases/results/merged-dataframe-cleaned.xlsx")
+merged_df.to_excel("C:/Users/patap/Desktop/Python projects/Merging and Annotating raw genomic data using multiple"
+                   " databases/results/merged-dataframe-cleaned.xlsx")
